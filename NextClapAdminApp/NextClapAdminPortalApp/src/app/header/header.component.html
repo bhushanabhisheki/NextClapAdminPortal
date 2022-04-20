@@ -1,0 +1,51 @@
+<mat-toolbar color="primary">
+  <div>
+    <mat-icon>
+      <span class="material-icons-outlined">celebration</span>
+    </mat-icon>
+    <span style="padding-left: 10px">
+      <a routerLink="/">Next Clap</a>
+    </span>
+  </div>
+
+  <div fxFlex fxLayout fxLayoutAlign="end">
+    <ul fxLayout fxLayoutGap="25px" class="navigation-items">
+      <li>
+        <mat-icon matBadge="15" matBadgeColor="warn">
+          <span class="material-icons-outlined"> notifications_active </span>
+        </mat-icon>
+      </li>
+      <li>
+        <mat-icon [matMenuTriggerFor]="beforeMenu">
+          <span class="material-icons-outlined"> person_outline </span>
+        </mat-icon>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <mat-icon>
+              <span class="material-icons-outlined">settings</span>
+            </mat-icon>
+            Settings
+          </button>
+          <button mat-menu-item>
+            <mat-icon>
+              <span class="material-icons-outlined">account_box</span>
+            </mat-icon>
+            Profile
+          </button>
+          <button mat-menu-item>
+            <mat-icon>
+              <span class="material-icons-outlined">notifications_off</span>
+            </mat-icon>
+            Disable Notifications
+          </button>
+          <button mat-menu-item>
+            <mat-icon>
+              <span class="material-icons-outlined">exit_to_app</span>
+            </mat-icon>
+            Sign Out
+          </button>
+        </mat-menu>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
