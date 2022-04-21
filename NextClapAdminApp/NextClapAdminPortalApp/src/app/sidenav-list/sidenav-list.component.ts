@@ -1,25 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-sidenav-list',
+  templateUrl: './sidenav-list.component.html',
+  styleUrls: ['./sidenav-list.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class SidenavListComponent implements OnInit, OnDestroy {
   userLoggedIn = false;
   authServiceSubscription!: Subscription;
+  @Output() sidenavClose = new EventEmitter();
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.authServiceSubscription = this.authService.userLoggedIn.subscribe(
       (loggedIn) => {
         this.userLoggedIn = loggedIn;
       }
     );
   }
+
+  public onSidenavClose = () => {
+    this.sidenavClose.emit();
+  };
 
   logout() {
     this.authService.logout();

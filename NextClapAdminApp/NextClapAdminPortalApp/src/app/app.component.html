@@ -1,3 +1,11 @@
 <app-header></app-header>
-
-<button mat-raised-button color="primary" (click)="login()">Primary</button>
+<mat-sidenav-container>
+  <mat-sidenav style="width: 13rem" *ngIf="userLoggedIn" mode="side" opened>
+    <app-sidenav-list opened></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div [@routeAnim]="prepareRoute(outlet)" style="margin-top: 0.6rem">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

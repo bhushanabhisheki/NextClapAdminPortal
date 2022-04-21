@@ -1,17 +1,55 @@
+import {
+  animate,
+  group,
+  query,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, RouterOutlet } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
-import { User } from './auth/user.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('routeAnim', [
+      transition('* <=> *', [
+        query(':enter, :leave', [style({ position: 'fixed', width: '100%' })], {
+          optional: true,
+        }),
+        group([
+          query(
+            ':enter',
+            [
+              style({ transform: 'translateX(100%)' }),
+              animate('1s ease-in-out', style({ transform: 'translateX(0%)' })),
+            ],
+            { optional: true }
+          ),
+          query(
+            ':leave',
+            [
+              style({ transform: 'translateX(0%)' }),
+              animate(
+                '1s ease-in-out',
+                style({ transform: 'translateX(-100%)' })
+              ),
+            ],
+            { optional: true }
+          ),
+        ]),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit {
-  title = 'NextClapAdminPortalApp';
+  title = 'Next Clap Admin Portal';
+  authServiceSubscription!: Subscription;
+  userLoggedIn = false;
   isLoading = false;
   error?: string;
 
@@ -19,32 +57,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.autoLogin();
-  }
-
-  // onSubmit(form: NgForm) {
-  login() {
-    // if (!form.valid) {
-    //   return;
-    // }
-    const username = 'admin'; // = form.value.email;
-    const password = 'admin'; // = form.value.password;
-
-    this.isLoading = true;
-    let authObs: Observable<User> = this.authService.login(username, password);
-
-    authObs.subscribe(
-      (resData) => {
-        console.log(resData);
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      (errorMessage) => {
-        this.error = errorMessage;
-        this.authService.logout();
-        this.isLoading = false;
+    this.authServiceSubscription = this.authService.userLoggedIn.subscribe(
+      (loggedIn) => {
+        this.userLoggedIn = loggedIn;
+        console.log('loggd in ' + loggedIn);
       }
     );
+  }
 
-    //form.reset();
+  prepareRoute(outlet: RouterOutlet) {
+    if (outlet.isActivated) return outlet.activatedRoute.snapshot.url;
+
+    return;
+  }
+
+  ngOnDestroy(): void {
+    this.authServiceSubscription.unsubscribe();
   }
 }

@@ -1,0 +1,47 @@
+<div class="signin-content">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card-title>Nextclap Admin Panel</mat-card-title>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="User"
+            formControlName="userName"
+            required
+          />
+          <mat-error *ngIf="isFieldInvalid('userName')">
+            Please enter user name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            required
+          />
+          <mat-error *ngIf="isFieldInvalid('password')">
+            Please enter your password
+          </mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button color="primary" type="submit">Login</button>
+          <div style="margin-left: 1rem">
+            <a
+              href="/forgot-password"
+              style="text-decoration: none; color: black"
+            >
+              Forgot your password?
+            </a>
+          </div>
+        </div>
+      </form>
+      <div style="color: red" *ngIf="error">
+        <p>{{ error }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

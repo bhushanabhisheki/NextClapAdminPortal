@@ -9,6 +9,7 @@ import { User } from './user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  userLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -38,15 +39,16 @@ export class AuthService {
     const loadedUser = userData;
     if (loadedUser.token) {
       this.user.next(loadedUser.user);
+      this.userLoggedIn.next(true);
       const parsedTokenData = this.parseJwt(loadedUser.token);
       this.autoLogout(parsedTokenData.exp);
-      console.log(loadedUser);
     }
   }
 
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
+    this.userLoggedIn.next(false);
     if (this.router.url != '/auth') {
       this.router.navigate(['/auth']);
     }
@@ -63,7 +65,6 @@ export class AuthService {
     let currentDate = new Date();
     let expirationDuration = expDate.getTime() - currentDate.getTime();
 
-    console.log(expirationDuration);
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
@@ -89,6 +90,7 @@ export class AuthService {
     this.autoLogout(parsedTokenData.exp);
 
     this.user.next(authData.user);
+    this.userLoggedIn.next(true);
     localStorage.setItem('userData', JSON.stringify(authData));
   }
 
