@@ -9,9 +9,10 @@ const routes: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full',
   },
-  { path: 'auth', canActivate: [AuthGuard], component: AuthComponent },
+  { path: 'auth', component: AuthComponent },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
@@ -47,6 +48,11 @@ const routes: Routes = [
       import('./service-spots/service-spots.module').then(
         (m) => m.ServiceSpotsModule
       ),
+  },
+  {
+    path: '**',
+    redirectTo: '/dashboard',
+    pathMatch: 'full',
   },
 ];
 @NgModule({
