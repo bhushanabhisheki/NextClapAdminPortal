@@ -1,0 +1,52 @@
+<div mat-dialog-title class="dialog-header">{{ data?.title }}</div>
+<mat-divider></mat-divider>
+<div class="dialog-body">
+  {{ data?.message }}
+  <div
+    style="display: inline"
+    class="row fileItem"
+    *ngFor="let f of files; let ind = index"
+  >
+    <span style="font-weight: bold">{{ f.name }}</span>
+  </div>
+  <div style="float: right">
+    <a href="../../../../assets/sample.xlsx" class="file-link">sample.txt</a>
+  </div>
+  <div>
+    <div
+      class="dropzone"
+      fileDragDrop
+      (filesChangeEmiter)="onFileChange($event)"
+    >
+      <div class="text-wrapper">
+        <div class="centered">
+          <input
+            type="file"
+            name="file"
+            id="file"
+            (change)="onFileChange($any($event).target.files)"
+          />
+
+          <label for="file"
+            ><span class="textLink">Select your file</span> or Drop it
+            here!</label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button
+      mat-stroked-button
+      color="primary"
+      tabindex="-1"
+      [mat-dialog-close]="false"
+    >
+      {{ data?.cancelCaption }}
+    </button>
+    <button mat-stroked-button (click)="closeDialog()" color="warn">
+      {{ data?.confirmCaption }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span>Add New - Frequently Asked Question</span>
+</mat-toolbar>
+<mat-card>
+  <mat-card-content>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>What is your Question?</mat-label>
+      <input
+        matInput
+        required
+        [(ngModel)]="data.question"
+        placeholder="What is your Question?"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Answer</mat-label>
+      <textarea
+        class="form-element"
+        matInput
+        required
+        [(ngModel)]="data.answer"
+        rows="5"
+        placeholder="Answer"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="button-panel">
+      <button mat-raised-button color="warn" (click)="onNoClick()">
+        Cancel
+      </button>
+
+      <button mat-raised-button color="primary" [mat-dialog-close]="data">
+        {{ editMode ? "Update" : "Add" }}
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

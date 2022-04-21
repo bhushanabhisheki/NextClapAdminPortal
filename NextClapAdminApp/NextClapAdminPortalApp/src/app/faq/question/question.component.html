@@ -1,0 +1,51 @@
+<mat-card [class.mat-elevation-z2]="true">
+  <mat-card-content>
+    <div fxLayout="column">
+      <div style="padding-left: 1rem" class="header">
+        {{ query?.question }}
+      </div>
+
+      <div class="question_content">
+        {{ query?.answer }}
+      </div>
+
+      <div fxLayout="row">
+        <div
+          fxFlex="30"
+          align="start"
+          style="padding-left: 0.5rem; padding-top: 1rem"
+        >
+          <small> Created by : Admin, Creation Date: 14 March 2022</small>
+        </div>
+        <div
+          fxFlex="70"
+          align="end"
+          style="padding: 0.3rem; margin-bottom: 0.4rem"
+        >
+          <button
+            mat-stroked-button
+            color="primary"
+            style="margin-right: 1rem"
+            (click)="onEditQuery()"
+          >
+            <mat-icon
+              ><span class="material-icons-outlined"> edit </span></mat-icon
+            >
+            Edit
+          </button>
+          <button
+            mat-stroked-button
+            color="warn"
+            style="padding-right: 1rem"
+            (click)="onDeleteQuestion()"
+          >
+            <mat-icon
+              ><span class="material-icons-outlined">delete </span></mat-icon
+            >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

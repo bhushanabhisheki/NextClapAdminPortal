@@ -1,0 +1,24 @@
+@import "../../../../custom-theme.scss";
+
+mat-card {
+  width: 94%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 0px;
+  min-height: 6rem;
+}
+
+.header {
+  background: map-get($primary, 500);
+  color: white;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  min-height: 1rem;
+  font-size: 15px;
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+.question_content {
+  padding: 0.5rem;
+}

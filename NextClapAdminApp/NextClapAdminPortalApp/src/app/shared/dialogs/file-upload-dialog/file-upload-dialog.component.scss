@@ -1,0 +1,38 @@
+.dialog-body {
+  margin: 10px;
+}
+
+.mat-dialog-title {
+  margin: 10px;
+}
+
+.text-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.dropzone {
+  height: 7rem;
+  display: table;
+  width: 100%;
+  text-align: center;
+  background-color: #eee;
+  border: dotted 1px #aaa;
+}
+
+.textLink {
+  background-color: #f45e61;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-link {
+  text-decoration: none;
+  color: black;
+}

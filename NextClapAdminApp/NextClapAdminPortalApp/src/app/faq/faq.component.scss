@@ -1,0 +1,43 @@
+.faq-main-page {
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-raised-button {
+    margin-right: 0.4rem;
+  }
+
+  mat-card {
+    margin-top: 1rem;
+    min-height: 80vh;
+  }
+
+  mat-card-title {
+    font-size: medium;
+  }
+
+  button {
+    margin-right: 0.3rem;
+  }
+
+  .mat-mini-fab {
+    border-radius: 0.4rem;
+    width: 3.5rem;
+  }
+
+  .question-list-empty {
+    text-align: center;
+    color: lightgray;
+  }
+
+  ::ng-deep .mat-simple-snackbar {
+    color: white !important;
+  }
+}

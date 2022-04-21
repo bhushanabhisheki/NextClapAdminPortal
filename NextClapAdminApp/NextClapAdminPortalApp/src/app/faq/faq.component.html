@@ -1,2 +1,65 @@
 <mat-card class="mainpanel-card faq-main-page" [class.mat-elevation-z8]="true">
+  <div fxLayout="row" style="width: 94%; margin: 0 auto">
+    <div fxFlex="30">
+      <mat-form-field appearance="outline">
+        <mat-label>Spot or Event</mat-label>
+        <mat-select>
+          <mat-option
+            *ngFor="let serviceSpot of serviceSpots"
+            [value]="serviceSpot.value"
+          >
+            {{ serviceSpot.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="40">
+      <h2 style="text-align: center">Frequently Asked Questions</h2>
+    </div>
+    <div fxFlex="30">
+      <mat-card-actions align="end">
+        <button
+          mat-mini-fab
+          (click)="openDialog()"
+          color=""
+          matTooltip="Add new question"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          (click)="onImportCsvFile()"
+          color=""
+          matTooltip="Import file"
+        >
+          <mat-icon
+            ><span class="material-icons-outlined">
+              file_upload
+            </span></mat-icon
+          >
+        </button>
+      </mat-card-actions>
+    </div>
+  </div>
+
+  <mat-card-content
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-question
+      *ngFor="let question of questionList"
+      [query]="question"
+      (edit)="onEditQuestion(question)"
+      (delete)="deleteQuestion($event)"
+      cdkDrag
+    ></app-question>
+    <div
+      class="question-list-empty"
+      *ngIf="questionList && questionList.length == 0"
+    >
+      <h2>No Questions found. Click + button to add.</h2>
+    </div>
+    <!-- -->
+  </mat-card-content>
 </mat-card>
