@@ -7,13 +7,14 @@ import { Question } from '../shared/models/question';
   providedIn: 'root',
 })
 export class FaqService {
-  private url: string = '/data/faqlist';
+  private url: string = 'http://localhost:4000/api/v1/faq/1';
 
   constructor(private http: HttpClient) {}
 
   getQuestionList(): Observable<Question[]> {
     return this.http.get<Question[]>(this.url).pipe(
       map((response) => {
+        console.log(response);
         return response;
       })
     );

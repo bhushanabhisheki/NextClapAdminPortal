@@ -17,11 +17,16 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.authService.user.pipe(
       take(1),
       exhaustMap((user) => {
-        if (!user) {
+        if (!user || localStorage.getItem('userData') === null) {
           return next.handle(req);
         }
+        let localUserData = localStorage.getItem('userData');
+        const userData: any = JSON.parse(localUserData || '');
         const modifiedReq = req.clone({
-          params: new HttpParams().set('auth', user.token ? user.token : ''),
+          headers: req.headers.set(
+            'Authorization',
+            userData.token ? 'jwt ' + userData.token : ''
+          ),
         });
         return next.handle(modifiedReq);
       })
