@@ -28,8 +28,9 @@ export class AuthService {
   }
 
   autoLogin() {
-    console.log(localStorage.getItem('userData'));
-    const userData: any = JSON.parse(localStorage.getItem('userData') || '');
+    let localUserData = localStorage.getItem('userData');
+    if (localUserData === null) return;
+    const userData: any = JSON.parse(localUserData || '');
     if (!userData) {
       return;
     }
@@ -45,8 +46,10 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
+    if (this.router.url != '/auth') {
+      this.router.navigate(['/auth']);
+    }
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -95,7 +98,6 @@ export class AuthService {
     if (!errorRes.error) {
       return throwError(() => new Error(errorMessage));
     }
-
     return throwError(() => new Error(errorRes.error.message));
   }
 }

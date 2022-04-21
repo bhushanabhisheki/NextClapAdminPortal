@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     //   return;
     // }
     const username = 'admin'; // = form.value.email;
-    const password = 'admin1'; // = form.value.password;
+    const password = 'admin'; // = form.value.password;
 
     this.isLoading = true;
     let authObs: Observable<User> = this.authService.login(username, password);
@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
       },
       (errorMessage) => {
         this.error = errorMessage;
+        this.authService.logout();
         this.isLoading = false;
       }
     );
