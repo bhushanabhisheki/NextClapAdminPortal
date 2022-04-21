@@ -65,6 +65,10 @@ export class AppComponent implements OnInit {
     );
   }
 
+  loggedIn() {
+    return this.userLoggedIn && localStorage.getItem('userData');
+  }
+
   prepareRoute(outlet: RouterOutlet) {
     if (outlet.isActivated) return outlet.activatedRoute.snapshot.url;
 
