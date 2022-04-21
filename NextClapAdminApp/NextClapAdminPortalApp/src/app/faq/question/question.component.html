@@ -6,7 +6,10 @@
       </div>
 
       <div class="question_content">
-        {{ query?.answer }}
+        <app-answer
+          *ngFor="let answer of query?.answers"
+          [answer]="answer"
+        ></app-answer>
       </div>
 
       <div fxLayout="row">
@@ -15,7 +18,10 @@
           align="start"
           style="padding-left: 0.5rem; padding-top: 1rem"
         >
-          <small> Created by : Admin, Creation Date: 14 March 2022</small>
+          <small> Creation Date:{{ getFormattedCreationDate() }} </small>
+          <small style="padding-left: 1rem"
+            >Last Modified: {{ getFormattedLastDate() }}</small
+          >
         </div>
         <div
           fxFlex="70"

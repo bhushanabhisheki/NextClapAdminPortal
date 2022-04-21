@@ -5,7 +5,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { remove } from 'lodash';
 import { Subscription } from 'rxjs';
 
-import { Question } from 'src/app/shared/models/question';
+import { Question } from 'src/app/faq/question.model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { FaqService } from './faq.service';
 import { NewFaqDialog } from './new-faq/new-faq-dialog.component';
@@ -23,7 +23,7 @@ interface ServiceSpots {
 })
 export class FaqComponent implements OnInit, OnDestroy {
   questionList?: Question[];
-  faqserviceSubscription?: Subscription;
+  questionListSubscription?: Subscription;
 
   //TODO : to be fetched from the service spot API
   serviceSpots: ServiceSpots[] = [
@@ -41,15 +41,23 @@ export class FaqComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.faqserviceSubscription = this.faqservice
-      .getQuestionList()
-      .subscribe((response: any) => {
-        this.questionList = response;
-      });
+    this.faqservice.getQueryList('1');
+    this.questionListSubscription = this.faqservice.queryList.subscribe(
+      (queryList) => {
+        this.questionList = queryList;
+        console.log(this.questionList);
+      }
+    );
+  }
+
+  getJSON(obj: any): any {
+    {
+      return JSON.stringify(obj);
+    }
   }
 
   ngOnDestroy(): void {
-    this.faqserviceSubscription?.unsubscribe();
+    this.questionListSubscription?.unsubscribe();
   }
 
   openDialog(q = '', a = ''): void {
@@ -60,30 +68,29 @@ export class FaqComponent implements OnInit, OnDestroy {
       data: { question: q, answer: a },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result)
-        this.questionList?.push({
-          id: Math.random().toString(36).substring(3, 15),
-          question: result.question,
-          answer: result.answer,
-        });
-    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result)
+    //     this.questionList?.push({
+    //       id: Math.random().toString(36).substring(3, 15),
+    //       question: result.question,
+    //       answer: result.answer,
+    //     });
+    // });
   }
 
   onEditQuestion(question: Question) {
-    const dialogRef = this.dialog.open(NewFaqDialog, {
-      width: '48rem',
-      height: '23rem',
-      disableClose: false,
-      data: { question: question.question, answer: question.answer },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        question.question = result.question;
-        question.answer = result.answer;
-      }
-    });
+    // const dialogRef = this.dialog.open(NewFaqDialog, {
+    //   width: '48rem',
+    //   height: '23rem',
+    //   disableClose: false,
+    //   data: { question: question.question, answer: question.answer },
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     question.question = result.question;
+    //     question.answer = result.answer;
+    //   }
+    // });
   }
 
   removeItemsWithID(items: Question[], id: string): void {
@@ -129,11 +136,11 @@ export class FaqComponent implements OnInit, OnDestroy {
           if (response && response.data) {
             const responsedata = response.data;
             responsedata.forEach((record: any) => {
-              this.questionList?.push({
-                id: Math.random().toString(36).substring(3, 15),
-                question: record.question,
-                answer: record.answer,
-              });
+              //   this.questionList?.push({
+              //     id: Math.random().toString(36).substring(3, 15),
+              //     question: record.question,
+              //     answer: record.answer,
+              //   });
             });
 
             if (response)
