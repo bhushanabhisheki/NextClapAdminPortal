@@ -4,8 +4,10 @@
     <app-sidenav-list opened></app-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div [@routeAnim]="prepareRoute(outlet)" style="margin-top: 0.6rem">
-      <router-outlet #outlet="outlet"></router-outlet>
+    <div>
+      <div [@routeAnim]="prepareRoute(outlet)" style="margin-top: 0.6rem">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
