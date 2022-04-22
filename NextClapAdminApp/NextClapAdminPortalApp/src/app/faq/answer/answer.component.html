@@ -1,6 +1,19 @@
-<div>
+<div [fxHide]="editMode">
   <button mat-icon-button color="warn">
     <mat-icon>keyboard_tab</mat-icon>
   </button>
   {{ answer?.answer }}
+</div>
+<div [fxHide]="!editMode">
+  <mat-form-field class="form-element" appearance="outline">
+    <mat-label>Answer</mat-label>
+    <textarea
+      matInput
+      required
+      [(ngModel)]="answerInput"
+      rows="2"
+      style="width: 100%"
+      placeholder="Answer"
+    ></textarea>
+  </mat-form-field>
 </div>

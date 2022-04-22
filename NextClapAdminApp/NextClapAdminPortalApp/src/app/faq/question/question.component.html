@@ -8,6 +8,7 @@
       <div class="question_content">
         <app-answer
           *ngFor="let answer of query?.answers"
+          [editMode]="false"
           [answer]="answer"
         ></app-answer>
       </div>

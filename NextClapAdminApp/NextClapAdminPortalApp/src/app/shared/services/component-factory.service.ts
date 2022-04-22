@@ -1,14 +1,13 @@
 import {
   Injectable,
   ComponentFactoryResolver,
-  ComponentFactory,
   ViewContainerRef,
 } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FactoryService {
+export class ComponentFactoryService {
   rootViewContainer?: ViewContainerRef;
 
   constructor(private factoryResolver: ComponentFactoryResolver) {}
@@ -21,7 +20,7 @@ export class FactoryService {
     this.rootViewContainer?.clear();
   }
 
-  private insertComponent(componentType: any): void {
+  public insertComponent(componentType: any): void {
     const factory = this.factoryResolver.resolveComponentFactory(componentType);
     this.rootViewContainer?.createComponent(factory);
   }

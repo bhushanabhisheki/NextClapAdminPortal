@@ -8,8 +8,11 @@ import { Answer } from '../answer.model';
 })
 export class AnswerComponent implements OnInit {
   @Input() answer?: Answer;
-
+  @Input() editMode: boolean = true;
+  answerInput?: string = '';
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.answerInput = this.answer?.answer;
+  }
 }

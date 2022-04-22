@@ -18,3 +18,15 @@
 ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0px !important;
 }
+
+.dynamicAnswer {
+  height: 8rem;
+  max-height: 7rem !important;
+  overflow: auto !important;
+}
+
+// ::-webkit-scrollbar {
+//   width: 2em;
+//   height: 0.3em;
+//   background: red;
+// }

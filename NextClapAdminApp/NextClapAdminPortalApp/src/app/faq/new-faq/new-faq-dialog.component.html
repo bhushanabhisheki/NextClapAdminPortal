@@ -12,24 +12,25 @@
         placeholder="What is your Question?"
       />
     </mat-form-field>
-    <div style="float: right">
-      <button mat-icon-button color="accent">
+    <div>
+      <button mat-icon-button color="accent" (click)="addNewAnswer()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
-
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Answer</mat-label>
-      <textarea
-        class="form-element"
-        matInput
-        required
-        [(ngModel)]="data.answer"
-        rows="5"
-        placeholder="Answer"
-      ></textarea>
-    </mat-form-field>
-
+    <div class="dynamicAnswer">
+      <div *ngIf="answers.length > 0" class="dynamicAnswer">
+        <app-answer
+          *ngFor="let answer of answers"
+          [editMode]="true"
+          [answer]="answer"
+        ></app-answer>
+        <ng-container #dynamicAnswer></ng-container>
+      </div>
+      <div *ngIf="answers.length === 0" class="dynamicAnswer">
+        <app-answer [editMode]="true"></app-answer>
+        <ng-container #dynamicAnswer></ng-container>
+      </div>
+    </div>
     <div class="button-panel">
       <button mat-raised-button color="warn" (click)="onNoClick()">
         Cancel
