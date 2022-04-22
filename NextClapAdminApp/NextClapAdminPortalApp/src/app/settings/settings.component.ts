@@ -100,10 +100,13 @@ export class SettingsComponent {
       id: Math.random().toString(36).substring(3, 15),
       active: 'active',
       registration_date: new Date().toLocaleDateString(),
-      username: new FormControl({ value: 'bhushan', disabled: true }),
+      username: new FormControl({
+        value: this.data?.username ? this.data?.username : 'Not Available',
+        disabled: true,
+      }),
 
       email: new FormControl(
-        '',
+        this.data?.email ? this.data?.email : 'Not Available',
         Validators.compose([
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
@@ -112,20 +115,34 @@ export class SettingsComponent {
 
       role: new FormControl({ value: this.roles[0].value, disabled: true }),
       password: new FormControl(
-        '',
+        this.data?.password ? this.data?.password : '',
         Validators.compose([Validators.minLength(8)])
       ),
-      company: new FormControl(''),
+      company: new FormControl(
+        this.data?.company ? this.data?.company : 'Not Available'
+      ),
       gender: new FormControl(
-        1,
+        this.data?.gender ? this.data?.gender : 1,
         Validators.compose([Validators.minLength(8), Validators.required])
       ),
-      phone: new FormControl(''),
-      birthdate: new FormControl(''),
-      firstname: new FormControl(''),
-      lastname: new FormControl(''),
-      state: new FormControl(''),
-      region: new FormControl(''),
+      phone: new FormControl(
+        this.data?.phone ? this.data?.phone : 'Not Available'
+      ),
+      birthdate: new FormControl(
+        this.data?.birthdate ? this.data?.birthdate : 'Not Available'
+      ),
+      firstname: new FormControl(
+        this.data?.firstname ? this.data?.firstname : 'Not Available'
+      ),
+      lastname: new FormControl(
+        this.data?.lastname ? this.data?.lastname : 'Not Available'
+      ),
+      state: new FormControl(
+        this.data?.state ? this.data?.state : 'Not Available'
+      ),
+      region: new FormControl(
+        this.data?.region ? this.data?.region : 'Not Available'
+      ),
     });
   }
 
