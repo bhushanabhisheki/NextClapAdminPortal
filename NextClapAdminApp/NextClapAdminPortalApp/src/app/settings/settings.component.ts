@@ -144,8 +144,8 @@ export class SettingsComponent {
   }
 
   @ViewChild('fileInput') el?: ElementRef;
-  imageUrl: any =
-    'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+
+  imageUrl: any = '/assets/profileimage/profile_male.png';
   editFile: boolean = true;
   removeUpload: boolean = false;
 
@@ -172,8 +172,7 @@ export class SettingsComponent {
   // Function to remove uploaded file
   removeUploadedFile() {
     let newFileList = Array.from(this.el?.nativeElement.files);
-    this.imageUrl =
-      'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    this.imageUrl = '/assets/profileimage/profile_male.png';
     this.editFile = true;
     this.removeUpload = false;
   }
