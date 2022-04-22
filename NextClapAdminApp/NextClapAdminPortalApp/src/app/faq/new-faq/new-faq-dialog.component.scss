@@ -14,3 +14,7 @@
 .mat-toolbar {
   max-height: 3rem;
 }
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0px !important;
+}
