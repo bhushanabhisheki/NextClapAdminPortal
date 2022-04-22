@@ -1,33 +1,55 @@
 <mat-card class="mainpanel-card" [class.mat-elevation-z8]="true">
   <h2 style="text-align: center">Profile Information</h2>
 
-  <div class="avatar-upload">
-    <div class="avatar-edit">
-      <input
-        type="file"
-        id="imageUpload"
-        accept=".png, .jpg, .jpeg"
-        #fileInput
-        (change)="uploadFile($event)"
-      />
-      <label
-        for="imageUpload"
-        *ngIf="editFile"
-        [ngClass]="['custom-label', 'upload-image']"
-      ></label>
-      <label
-        *ngIf="removeUpload"
-        [ngClass]="['custom-label', 'remove-image']"
-        (click)="removeUploadedFile()"
-      ></label>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="avatar-upload" fxFlex="18" fxLayoutAlign="start">
+      <div class="avatar-edit">
+        <input
+          type="file"
+          id="imageUpload"
+          accept=".png, .jpg, .jpeg"
+          #fileInput
+          (change)="uploadFile($event)"
+        />
+        <label
+          for="imageUpload"
+          *ngIf="editFile"
+          [ngClass]="['custom-label', 'upload-image']"
+        ></label>
+        <label
+          *ngIf="removeUpload"
+          [ngClass]="['custom-label', 'remove-image']"
+          (click)="removeUploadedFile()"
+        ></label>
+      </div>
+      <div class="avatar-preview">
+        <div
+          id="imagePreview"
+          [style.backgroundImage]="'url(' + imageUrl + ')'"
+        ></div>
+      </div>
     </div>
-    <div class="avatar-preview">
-      <div
-        id="imagePreview"
-        [style.backgroundImage]="'url(' + imageUrl + ')'"
-      ></div>
+
+    <div fxFlex="75" fxLayoutAlign="start none" style="height: 11rem">
+      <div fxLayout="row" fxLayoutAlign="start center" style="width: 45rem">
+        <div class="heading-title" fxFlex>
+          <h3>Username : Admin</h3>
+
+          <h3>Company : Atrilom Ltd.</h3>
+
+          <h3>Reporting Manager : Tapas Majumder</h3>
+        </div>
+        <div class="heading-title" fxFlex style="margin-left: 1.5rem">
+          <h3>Group : Hotels</h3>
+
+          <h3>State : Goa</h3>
+
+          <h3>Region : South Goa</h3>
+        </div>
+      </div>
     </div>
   </div>
+
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Account Details">
       <div class="accountDetailsForm">
@@ -44,7 +66,7 @@
                     minlength="5"
                     placeholder="Username"
                     formControlName="username"
-                    required
+                    [attr.disabled]="true"
                   />
                   <mat-error
                     *ngFor="
@@ -119,13 +141,13 @@
                     placeholder="password"
                   />
                 </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Company</mat-label>
+                <mat-form-field appearance="outline" rowHeight="2rem">
+                  <mat-label>Confirm Password</mat-label>
                   <input
-                    type="text"
-                    formControlName="company"
+                    type="password"
                     matInput
-                    placeholder="Company name"
+                    formControlName="password"
+                    placeholder="Confirm password"
                   />
                 </mat-form-field>
                 <mat-form-field appearance="outline">

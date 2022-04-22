@@ -98,15 +98,7 @@ export class SettingsComponent {
       id: Math.random().toString(36).substring(3, 15),
       active: 'active',
       registration_date: new Date().toLocaleDateString(),
-      username: new FormControl(
-        '',
-        Validators.compose([
-          Validators.maxLength(25),
-          Validators.minLength(5),
-          Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'),
-          Validators.required,
-        ])
-      ),
+      username: new FormControl({ value: 'bhushan', disabled: true }),
 
       email: new FormControl(
         '',
@@ -116,7 +108,7 @@ export class SettingsComponent {
         ])
       ),
 
-      role: new FormControl(this.roles[0].value, Validators.required),
+      role: new FormControl({ value: this.roles[0].value, disabled: true }),
       password: new FormControl(
         '',
         Validators.compose([Validators.minLength(8)])
