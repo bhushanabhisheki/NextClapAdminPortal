@@ -33,18 +33,30 @@
     <div fxFlex="75" fxLayoutAlign="start none" style="height: 11rem">
       <div fxLayout="row" fxLayoutAlign="start center" style="width: 45rem">
         <div class="heading-title" fxFlex>
-          <h3>Username : Admin</h3>
+          <h3>Username : {{ data?.username ? data?.username : "" }}</h3>
 
-          <h3>Company : Atrilom Ltd.</h3>
+          <h3>
+            Company : {{ data?.company ? data?.company : "Not Available" }}
+          </h3>
 
-          <h3>Reporting Manager : Tapas Majumder</h3>
+          <h3>
+            Reporting Manager :
+            {{
+              data?.reporting_manager
+                ? data?.reporting_manager
+                : "Not Available"
+            }}
+          </h3>
         </div>
         <div class="heading-title" fxFlex style="margin-left: 1.5rem">
-          <h3>Group : Hotels</h3>
+          <h3>
+            Group :
+            {{ data?.group ? data?.group : "Not Available" }}
+          </h3>
 
-          <h3>State : Goa</h3>
+          <h3>State : {{ data?.state ? data?.state : "Not Available" }}</h3>
 
-          <h3>Region : South Goa</h3>
+          <h3>Region : {{ data?.region ? data?.region : "Not Available" }}</h3>
         </div>
       </div>
     </div>

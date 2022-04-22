@@ -90,8 +90,10 @@ export class SettingsComponent {
 
   createForm(): void {
     this.editMode = true;
-    let userdata: any = localStorage.getItem('userData');
-    if (userdata && userdata.user) this.data = userdata?.user;
+    let userdata = JSON.parse(localStorage.getItem('userData') || '');
+    if (userdata && userdata.user) this.data = userdata.user;
+
+    console.log(this.data);
 
     console.log('editMode' + this.editMode);
     this.accountDetailsForm = this.fb.group({

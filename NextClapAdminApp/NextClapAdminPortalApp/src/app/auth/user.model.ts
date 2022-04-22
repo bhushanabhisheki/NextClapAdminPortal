@@ -1,11 +1,11 @@
 export class User {
   constructor(
-    private id: string,
-    private username: string,
-    private _token: string,
-    private role: string, //    superadmin/admin/others
-    private email: string,
-    private password: string,
+    public id: string,
+    public username: string,
+    public _token: string,
+    public role: string, //    superadmin/admin/others
+    public email: string,
+    public password: string,
     public expiresIn: string,
     public _tokenExpirationDate: Date,
     public firstname: string,
