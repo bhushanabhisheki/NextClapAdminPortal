@@ -11,8 +11,23 @@ const schema = {
     type: String,
     required: true,
   },
-  ANSWER: {
-    prop: 'answer',
+  ANSWER1: {
+    prop: 'answer1',
+    type: String,
+    required: true,
+  },
+  ANSWER2: {
+    prop: 'answer2',
+    type: String,
+    required: true,
+  },
+  ANSWER3: {
+    prop: 'answer3',
+    type: String,
+    required: true,
+  },
+  ANSWER4: {
+    prop: 'answer4',
     type: String,
     required: true,
   },

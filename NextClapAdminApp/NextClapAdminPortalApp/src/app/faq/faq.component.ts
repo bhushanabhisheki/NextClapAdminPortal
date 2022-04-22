@@ -9,6 +9,7 @@ import { Question } from 'src/app/faq/question.model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { FaqService } from './faq.service';
 import { NewFaqDialog } from './new-faq/new-faq-dialog.component';
+import { Answer } from './answer.model';
 
 //TODO : need to move this to model while defining servicespots
 interface ServiceSpots {
@@ -123,6 +124,8 @@ export class FaqComponent implements OnInit, OnDestroy {
     });
   }
 
+  //functionality to read the contents of the CSV file
+  //the schema of the uploaded file is defined in file-upload-dialog-component
   onImportCsvFile() {
     this.confirmDialogService
       .fileUploadDialog({
@@ -132,38 +135,40 @@ export class FaqComponent implements OnInit, OnDestroy {
         cancelCaption: 'No',
       })
       .subscribe((response: any) => {
+        let message = 'Invalid file or content not as per appropriate format.';
         try {
           if (response && response.data) {
             const responsedata = response.data;
             responsedata.forEach((record: any) => {
-              //   this.questionList?.push({
-              //     id: Math.random().toString(36).substring(3, 15),
-              //     question: record.question,
-              //     answer: record.answer,
-              //   });
+              let index = 1;
+              let answersfromExcel = [];
+              while (record['answer' + index]) {
+                answersfromExcel.push(
+                  new Answer(
+                    Math.random().toString(36).substring(3, 15),
+                    record['answer' + index]
+                  )
+                );
+                index++;
+              }
+
+              this.questionList?.push({
+                id: Math.random().toString(36).substring(3, 15),
+                question: record.question,
+                created_date: new Date().toString(),
+                last_modified: new Date().toString(),
+                answers: answersfromExcel,
+                service: '1', //TODO : this needs to be based on service
+              });
             });
 
-            if (response)
-              this.showSnackbarTopPosition(
-                'Questions from the file added successfully.',
-                'Done',
-                '1000'
-              );
-          } else {
-            if (response)
-              this.showSnackbarTopPosition(
-                'Invalid file or content not as per appropriate format.',
-                'Done',
-                '1000'
-              );
+            if (response && response.data.length > 0) {
+              message = 'Questions added successfully !!!';
+            }
           }
-        } catch (e) {
-          this.showSnackbarTopPosition(
-            'Invalid file or content not as per appropriate format.',
-            'Done',
-            '1000'
-          );
-        }
+        } catch (e) {}
+
+        this.showSnackbarTopPosition(message, 'Done', '1000');
       });
   }
 
