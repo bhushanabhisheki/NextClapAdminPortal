@@ -1,0 +1,238 @@
+<mat-card class="mainpanel-card" [class.mat-elevation-z8]="true">
+  <h2 style="text-align: center">Profile Information</h2>
+
+  <div class="avatar-upload">
+    <div class="avatar-edit">
+      <input
+        type="file"
+        id="imageUpload"
+        accept=".png, .jpg, .jpeg"
+        #fileInput
+        (change)="uploadFile($event)"
+      />
+      <label
+        for="imageUpload"
+        *ngIf="editFile"
+        [ngClass]="['custom-label', 'upload-image']"
+      ></label>
+      <label
+        *ngIf="removeUpload"
+        [ngClass]="['custom-label', 'remove-image']"
+        (click)="removeUploadedFile()"
+      ></label>
+    </div>
+    <div class="avatar-preview">
+      <div
+        id="imagePreview"
+        [style.backgroundImage]="'url(' + imageUrl + ')'"
+      ></div>
+    </div>
+  </div>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Account Details">
+      <div class="accountDetailsForm">
+        <h2 class="section-title">
+          <form [formGroup]="accountDetailsForm" novalidate>
+            <div fxLayout="row">
+              <div fxLayout="column" fxFlex="50">
+                <mat-form-field appearance="outline" rowHeight="2rem">
+                  <mat-label>Username</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    maxlength="20"
+                    minlength="5"
+                    placeholder="Username"
+                    formControlName="username"
+                    required
+                  />
+                  <mat-error
+                    *ngFor="
+                      let validation of account_validation_messages.username
+                    "
+                  >
+                    <mat-error
+                      class="error-message"
+                      *ngIf="
+                        accountDetailsForm
+                          .get('username')
+                          ?.hasError(validation.type) &&
+                        (accountDetailsForm.get('username')?.dirty ||
+                          accountDetailsForm.get('username')?.touched)
+                      "
+                      >{{ validation.message }}</mat-error
+                    >
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Role</mat-label>
+                  <mat-select formControlName="role" placeholder="role">
+                    <mat-option *ngFor="let role of roles" [value]="role.value">
+                      {{ role.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input
+                    type="email"
+                    matInput
+                    formControlName="email"
+                    required
+                    placeholder="Ex. pat@example.com"
+                  />
+                  <mat-error
+                    *ngFor="let validation of account_validation_messages.email"
+                  >
+                    <mat-error
+                      class="error-message"
+                      *ngIf="
+                        accountDetailsForm
+                          .get('email')
+                          ?.hasError(validation.type) &&
+                        (accountDetailsForm.get('email')?.dirty ||
+                          accountDetailsForm.get('email')?.touched)
+                      "
+                      >{{ validation.message }}</mat-error
+                    >
+                  </mat-error>
+                </mat-form-field>
+
+                <button
+                  mat-raised-button
+                  color="warn"
+                  [mat-dialog-close]="false"
+                  style="width: 5rem; margin-left: 1.2rem"
+                >
+                  Cancel
+                </button>
+              </div>
+
+              <!--- Second column --->
+              <div fxLayout="column" fxFlex="50">
+                <mat-form-field appearance="outline" rowHeight="2rem">
+                  <mat-label>Password</mat-label>
+                  <input
+                    type="password"
+                    matInput
+                    formControlName="password"
+                    placeholder="password"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Company</mat-label>
+                  <input
+                    type="text"
+                    formControlName="company"
+                    matInput
+                    placeholder="Company name"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Phone</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Phone number"
+                    formControlName="phone"
+                  />
+                </mat-form-field>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  style="min-width: 5rem; margin-right: 1.4rem; align-self: end"
+                >
+                  {{ editMode == true ? "Update" : "Add" }} User
+                </button>
+              </div>
+            </div>
+          </form>
+        </h2>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Other Information">
+      <div class="accountDetailsForm">
+        <h2 class="section-title">
+          <form [formGroup]="accountDetailsForm" novalidate>
+            <div fxLayout="row">
+              <div fxLayout="column" fxFlex="50">
+                <mat-form-field appearance="outline" rowHeight="2rem">
+                  <mat-label>Firstname</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Ex. John"
+                    formControlName="firstname"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Birthdate</mat-label>
+                  <input
+                    type="date"
+                    matInput
+                    placeholder="admin/contractor"
+                    formControlName="birthdate"
+                    name="birthdate"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Ex. Goa"
+                    formControlName="state"
+                  />
+                </mat-form-field>
+
+                <button
+                  mat-raised-button
+                  color="warn"
+                  [mat-dialog-close]="false"
+                  style="width: 5rem; margin-left: 1.2rem"
+                >
+                  Cancel
+                </button>
+              </div>
+
+              <!--- Second column --->
+              <div fxLayout="column" fxFlex="50">
+                <mat-form-field appearance="outline" rowHeight="2rem">
+                  <mat-label>Lastname</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Ex. Smith"
+                    formControlName="lastname"
+                  />
+                </mat-form-field>
+                <mat-radio-group formControlName="gender">
+                  <label id="example-radio-group-label">Gender: </label>
+                  <mat-radio-button [value]="1">Male</mat-radio-button>
+                  <mat-radio-button [value]="2">Female</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field appearance="outline">
+                  <mat-label>Region</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Ex: South"
+                    formControlName="region"
+                  />
+                </mat-form-field>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  style="min-width: 5rem; margin-right: 1.4rem; align-self: end"
+                >
+                  {{ editMode == true ? "Update" : "Add" }} User
+                </button>
+              </div>
+            </div>
+          </form>
+        </h2>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

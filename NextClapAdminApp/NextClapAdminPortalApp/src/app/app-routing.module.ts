@@ -49,6 +49,7 @@ const routes: Routes = [
         (m) => m.ServiceSpotsModule
       ),
   },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
   {
     path: '**',
     redirectTo: '/dashboard',
