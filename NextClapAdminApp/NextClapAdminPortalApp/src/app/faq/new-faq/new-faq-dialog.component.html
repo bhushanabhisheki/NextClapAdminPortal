@@ -8,7 +8,7 @@
       <input
         matInput
         required
-        [(ngModel)]="data.question"
+        [(ngModel)]="questionField"
         placeholder="What is your Question?"
       />
     </mat-form-field>
@@ -18,15 +18,21 @@
       </button>
     </div>
     <div class="dynamicAnswer">
-      <div *ngIf="answers.length > 0" class="dynamicAnswer">
+      <div
+        *ngIf="data && data.answers && data.answers.length > 0"
+        class="dynamicAnswer"
+      >
         <app-answer
-          *ngFor="let answer of answers"
+          *ngFor="let answer of data.answers"
           [editMode]="true"
           [answer]="answer"
         ></app-answer>
         <ng-container #dynamicAnswer></ng-container>
       </div>
-      <div *ngIf="answers.length === 0" class="dynamicAnswer">
+      <div
+        *ngIf="data == null || (data.answers && data.answers.length === 0)"
+        class="dynamicAnswer"
+      >
         <app-answer [editMode]="true"></app-answer>
         <ng-container #dynamicAnswer></ng-container>
       </div>
@@ -36,8 +42,12 @@
         Cancel
       </button>
 
-      <button mat-raised-button color="primary" [mat-dialog-close]="data">
-        {{ editMode ? "Update" : "Add" }}
+      <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="submitData()"
+      >
+        {{ updateMode ? "Update" : "Add" }}
       </button>
     </div>
   </mat-card-content>

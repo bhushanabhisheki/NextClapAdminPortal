@@ -66,7 +66,7 @@ export class FaqComponent implements OnInit, OnDestroy {
       width: '48rem',
       height: '23rem',
       disableClose: false,
-      data: { question: q, answer: a },
+      data: null,
     });
 
     // dialogRef.afterClosed().subscribe((result) => {
@@ -80,12 +80,12 @@ export class FaqComponent implements OnInit, OnDestroy {
   }
 
   onEditQuestion(question: Question) {
-    // const dialogRef = this.dialog.open(NewFaqDialog, {
-    //   width: '48rem',
-    //   height: '23rem',
-    //   disableClose: false,
-    //   data: { question: question.question, answer: question.answer },
-    // });
+    const dialogRef = this.dialog.open(NewFaqDialog, {
+      width: '48rem',
+      height: '23rem',
+      disableClose: false,
+      data: question,
+    });
     // dialogRef.afterClosed().subscribe((result) => {
     //   if (result) {
     //     question.question = result.question;

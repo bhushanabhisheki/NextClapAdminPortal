@@ -11,11 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentFactoryService } from 'src/app/shared/services/component-factory.service';
 import { Answer } from '../answer.model';
 import { AnswerComponent } from '../answer/answer.component';
-
-export interface DialogData {
-  question: string;
-  answer: string;
-}
+import { Question } from '../question.model';
 
 @Component({
   selector: 'app-new-faq',
@@ -23,19 +19,26 @@ export interface DialogData {
   styleUrls: ['./new-faq-dialog.component.scss'],
 })
 export class NewFaqDialog implements OnInit {
-  editMode?: boolean;
+  updateMode?: boolean;
   answers: Answer[] = [];
+  questionField?: string;
+
   @ViewChild('dynamicAnswer', { read: ViewContainerRef })
   view?: ViewContainerRef;
 
   constructor(
     public componentFactoryService: ComponentFactoryService,
     public dialogRef: MatDialogRef<NewFaqDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: Question
   ) {}
 
   public ngOnInit(): void {
-    this.editMode = this.data.question != null && this.data.question != '';
+    if (this.data == null) {
+      this.updateMode = false;
+      this.questionField = '';
+    } else {
+      this.questionField = this.data.question;
+    }
   }
 
   onNoClick(): void {
@@ -48,4 +51,6 @@ export class NewFaqDialog implements OnInit {
       this.componentFactoryService.insertComponent(AnswerComponent);
     }
   }
+
+  submitData() {}
 }
