@@ -93,9 +93,6 @@ export class SettingsComponent {
     let userdata = JSON.parse(localStorage.getItem('userData') || '');
     if (userdata && userdata.user) this.data = userdata.user;
 
-    console.log(this.data);
-
-    console.log('editMode' + this.editMode);
     this.accountDetailsForm = this.fb.group({
       id: Math.random().toString(36).substring(3, 15),
       active: 'active',
@@ -122,7 +119,7 @@ export class SettingsComponent {
         this.data?.company ? this.data?.company : 'Not Available'
       ),
       gender: new FormControl(
-        this.data?.gender ? this.data?.gender : 1,
+        this.data?.gender ? this.data?.gender : 'Male',
         Validators.compose([Validators.minLength(8), Validators.required])
       ),
       phone: new FormControl(
