@@ -1,0 +1,70 @@
+<mat-card [class.mat-elevation-z2]="true">
+  <mat-card-content>
+    <div fxLayout="column">
+      <div
+        fxLayout="row"
+        fxFlex="2rem"
+        style="padding-left: 1rem"
+        class="header"
+        fxLayoutAlign="start start"
+      >
+        <span style="padding-top: 0.4rem">
+          {{ user.firstname + " " + user.lastname }}</span
+        >
+        <div style="flex: 1 1 auto"></div>
+        <mat-icon style="padding-top: 2px" [matMenuTriggerFor]="beforeMenu">
+          <span class="material-icons-outlined">more_vert</span>
+        </mat-icon>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="editUser()">
+            <mat-icon>
+              <span class="material-icons-outlined">edit</span>
+            </mat-icon>
+            Edit
+          </button>
+          <button mat-menu-item (click)="deleteUser()">
+            <mat-icon>
+              <span class="material-icons-outlined">delete</span>
+            </mat-icon>
+            Delete
+          </button>
+        </mat-menu>
+      </div>
+      <div fxLayout="row" style="height: 6rem">
+        <div fxLayout="row" fxFill fxLayoutAlign="center center">
+          <!--content start here-->
+          <div
+            fxflex
+            fxLayout="row"
+            fxFill
+            style="height: 10rem"
+            style="flex-direction: row; box-sizing: border-box"
+          >
+            <div fxFlex="15" style="text-align: center">
+              <div class="image-cropper">
+                <img src="../../../../assets/bruno.jpg" class="rounded" />
+              </div>
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div fxFlex="85">
+              <mat-grid-list cols="3" rowHeight="2rem">
+                <mat-grid-tile
+                  *ngFor="let item of user | keyvalue; let i; as: index"
+                >
+                  <div class="text-inside-grid">
+                    <mat-icon>
+                      <span class="material-icons-outlined">{{
+                        getIcon(item)
+                      }}</span> </mat-icon
+                    >{{ item.value ? item.value : "Not Available" }}
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+          </div>
+          <!--content ends here-->
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

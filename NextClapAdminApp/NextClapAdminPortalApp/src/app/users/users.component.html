@@ -1,3 +1,58 @@
 <mat-card class="mainpanel-card" [class.mat-elevation-z8]="true">
-  <h2 style="text-align: center">List of Users</h2>
+  <mat-card-actions align="end" style="margin-bottom: 0.1rem">
+    <button
+      mat-mini-fab
+      color=""
+      style="margin-left: 2rem"
+      matTooltip="Add New User"
+      (click)="showUserDialog(null)"
+    >
+      <mat-icon>person_add</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      color=""
+      mat-raised-button
+      matTooltip="Search User"
+      (click)="showSearch(true)"
+    >
+      <mat-icon><span class="material-icons-outlined"> search</span></mat-icon>
+    </button>
+    <div
+      style="display: inline"
+      [style.visibility]="showSearchOption ? 'visible' : 'hidden'"
+    >
+      <mat-form-field appearance="legacy" style="width: 16rem">
+        <input
+          matInput
+          [(ngModel)]="searchUser"
+          placeholder="Search User"
+          value=""
+          style="float: left"
+        />
+      </mat-form-field>
+      <button mat-icon-button color="warn" (click)="showSearch(false)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+
+    <div style="flex: 1 1 auto">
+      <h2 style="text-align: left; padding-left: 4rem">List of Users</h2>
+    </div>
+  </mat-card-actions>
+  <!-- <div *ngIf="(userList | filter: searchUser).length > 0; else noResults"> -->
+  <div>
+    <app-user
+      *ngFor="let user of userList"
+      [currentUser]="user"
+      (edit)="editCurrentUser($event)"
+      (delete)="DeleteCurrentUser($event)"
+    ></app-user>
+  </div>
+
+  <ng-template #noResults>
+    <div class="users-list-empty">
+      <h2>No results found for "{{ searchUser }}".</h2>
+    </div>
+  </ng-template>
 </mat-card>

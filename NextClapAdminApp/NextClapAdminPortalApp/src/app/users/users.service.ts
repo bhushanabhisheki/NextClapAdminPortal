@@ -13,9 +13,9 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  getQueryList(serviceId: string) {
+  getAllUsers() {
     this.http.get<any>(this.url, {}).subscribe((response) => {
-      this.userList.next(response.faqList);
+      this.userList.next(response.users);
     });
   }
 

@@ -1,4 +1,4 @@
-import { User } from './user';
+import { User } from 'src/app/auth/user.model';
 
 export interface UserDialogData {
   title: string;
