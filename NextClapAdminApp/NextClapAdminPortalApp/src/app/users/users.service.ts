@@ -26,6 +26,20 @@ export class UsersService {
     this.usersChanged.next(this.users?.slice());
   }
 
+  updateUser(index: number, user: User) {
+    if (this.users) {
+      this.users[index] = user;
+      this.usersChanged.next(this.users.slice());
+    }
+  }
+
+  deleteUser(index: number) {
+    if (this.users) {
+      this.users.splice(index, 1);
+      this.usersChanged.next(this.users.slice());
+    }
+  }
+
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
     console.log(errorRes);
