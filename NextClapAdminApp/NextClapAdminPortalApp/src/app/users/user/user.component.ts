@@ -55,4 +55,14 @@ export class UserComponent implements OnInit {
     console.log('current=' + this.currentUser);
     this.deleteCurrentUser.emit(this.currentUser);
   }
+
+  getDisplayedImage() {
+    let userImg: string = '../../../assets/profileimage/profile_male.png';
+
+    if (this.user?.profilePic)
+      userImg = 'http://localhost:4000/' + this.user.profilePic;
+    else if (this.user.gender === 'Female')
+      userImg = '../../../assets/profileimage/profile_male.png';
+    return userImg;
+  }
 }
