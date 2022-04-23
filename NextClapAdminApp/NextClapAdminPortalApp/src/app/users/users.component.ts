@@ -27,10 +27,12 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.getAllUsers();
-    this.usersSubscription = this.usersService.userList.subscribe((users) => {
-      this.userList = users;
-      console.log(this.userList);
-    });
+    this.usersSubscription = this.usersService.usersChanged.subscribe(
+      (users) => {
+        this.userList = users;
+        console.log(this.userList);
+      }
+    );
   }
 
   showUserDialog(user: any) {
