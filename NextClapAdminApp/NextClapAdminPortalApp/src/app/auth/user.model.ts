@@ -3,7 +3,7 @@ export class User {
     public id: string,
     public username: string,
     public _token: string,
-    public role: string, //    superadmin/admin/others
+    public role: any, //    superadmin/admin/others
     public email: string,
     public password: string,
     public expiresIn: string,

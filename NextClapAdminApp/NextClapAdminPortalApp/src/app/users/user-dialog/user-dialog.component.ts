@@ -71,11 +71,10 @@ export class UserDialogComponent implements OnInit {
   };
 
   roles = [
-    { name: 'Admin', value: 'admin' },
-    { name: 'Super Admin', value: 'super-admin' },
-    { name: 'Call Center', value: 'call-center' },
-    { name: 'Area Manager', value: 'area-manager' },
-    { name: 'Manging Director', value: 'manging-director' },
+    { name: 'Admin', value: 'Admin' },
+    { name: 'Call Center', value: 'Call Center' },
+    { name: 'Area Manager', value: 'Area Manager' },
+    { name: 'Manging Director', value: 'Manging Director' },
   ];
 
   constructor(
@@ -92,7 +91,7 @@ export class UserDialogComponent implements OnInit {
   createForm(): void {
     if (this.data?.user?.username) this.editMode = true;
     else this.editMode = false;
-    console.log('editMode' + this.editMode);
+    console.log('Role' + this.data?.user?.role?.role_name);
     this.accountDetailsForm = this.fb.group({
       id: Math.random().toString(36).substring(3, 15),
       active: 'active',
@@ -116,7 +115,7 @@ export class UserDialogComponent implements OnInit {
       ),
 
       role: new FormControl(
-        this.data.user ? this.data?.user?.role : this.roles[0].value,
+        this.data.user ? this.data?.user?.role?.role_name : this.roles[0].value,
         Validators.required
       ),
       password: new FormControl(
