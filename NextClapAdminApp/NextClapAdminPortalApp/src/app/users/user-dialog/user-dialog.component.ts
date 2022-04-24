@@ -157,7 +157,10 @@ export class UserDialogComponent implements OnInit {
 
   onSubmitAccountDetails(user: User): void {
     if (this.editMode) this.usersService.updateUser(user.id, user);
-    else this.usersService.addUser(user);
+    else {
+      user.address = '';
+      this.usersService.addUser(user);
+    }
     this.dialogRef.close({ event: 'close' });
   }
 }
