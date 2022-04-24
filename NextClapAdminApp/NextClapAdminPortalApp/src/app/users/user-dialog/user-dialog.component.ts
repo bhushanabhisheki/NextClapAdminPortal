@@ -12,6 +12,8 @@ import { ConfirmDialogData } from 'src/app/shared/models/confirm-dialog-data';
 import { PasswordValidator } from 'src/app/shared/validators/password.validator';
 import { UserDialogData } from 'src/app/shared/models/user-dialog-data';
 import { ElementSchemaRegistry } from '@angular/compiler';
+import { UsersService } from '../users.service';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
   selector: 'app-user-dialog',
@@ -78,6 +80,7 @@ export class UserDialogComponent implements OnInit {
   ];
 
   constructor(
+    public usersService: UsersService,
     public dialogRef: MatDialogRef<UserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UserDialogData,
     private _snackBar: MatSnackBar,
@@ -143,13 +146,11 @@ export class UserDialogComponent implements OnInit {
   }
 
   closeDialog() {
-    console.log('in close dialog');
     this.dialogRef.close({ event: 'close', data: 'user data' });
   }
 
-  onSubmitAccountDetails(value: any): void {
-    console.log('in submit');
-    if (value) this.dialogRef.close({ event: 'close', value });
-    else this.dialogRef.close({ event: 'close' });
+  onSubmitAccountDetails(value: User): void {
+    this.usersService.addUser(value);
+    this.dialogRef.close({ event: 'close' });
   }
 }

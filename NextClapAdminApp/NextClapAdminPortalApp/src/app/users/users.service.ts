@@ -22,8 +22,10 @@ export class UsersService {
   }
 
   addUser(user: User) {
-    this.users?.push(user);
-    this.usersChanged.next(this.users?.slice());
+    this.http.post<any>(this.url, user).subscribe((response) => {
+      this.users?.push(user);
+      this.usersChanged.next(this.users);
+    });
   }
 
   updateUser(index: number, user: User) {
