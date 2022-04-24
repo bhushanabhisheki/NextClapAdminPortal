@@ -73,11 +73,15 @@ export class UserDialogComponent implements OnInit {
   };
 
   roles = [
-    { name: 'Admin', value: 'Admin' },
-    { name: 'Call Center', value: 'Call Center' },
-    { name: 'Area Manager', value: 'Area Manager' },
-    { name: 'Manging Director', value: 'Manging Director' },
+    { name: 'Admin', value: 2 },
+    { name: 'Call Center', value: 3 },
+    { name: 'Area Manager', value: 4 },
+    { name: 'Manging Director', value: 5 },
   ];
+
+  getRoleBasedonName(rolename: string) {
+    return this.roles.find((role: any) => role.name === rolename)?.value;
+  }
 
   constructor(
     public usersService: UsersService,
@@ -96,9 +100,9 @@ export class UserDialogComponent implements OnInit {
     else this.editMode = false;
     console.log('Role' + this.data?.user?.role?.role_name);
     this.accountDetailsForm = this.fb.group({
-      id: Math.random().toString(36).substring(3, 15),
+      id: this.data.user ? this.data.user.id : null,
       active: 'active',
-      registration_date: new Date().toLocaleDateString(),
+      registration_date: new Date().toISOString(),
       username: new FormControl(
         this.data.user ? this.data?.user?.username : '',
         Validators.compose([
@@ -118,7 +122,9 @@ export class UserDialogComponent implements OnInit {
       ),
 
       role: new FormControl(
-        this.data.user ? this.data?.user?.role?.role_name : this.roles[0].value,
+        this.data.user
+          ? this.getRoleBasedonName(this.data?.user?.role?.role_name)
+          : this.roles[0].value,
         Validators.required
       ),
       password: new FormControl(
@@ -149,8 +155,9 @@ export class UserDialogComponent implements OnInit {
     this.dialogRef.close({ event: 'close', data: 'user data' });
   }
 
-  onSubmitAccountDetails(value: User): void {
-    this.usersService.addUser(value);
+  onSubmitAccountDetails(user: User): void {
+    if (this.editMode) this.usersService.updateUser(user.id, user);
+    else this.usersService.addUser(user);
     this.dialogRef.close({ event: 'close' });
   }
 }

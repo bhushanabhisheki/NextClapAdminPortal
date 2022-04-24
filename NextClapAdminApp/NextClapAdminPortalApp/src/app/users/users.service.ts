@@ -28,11 +28,10 @@ export class UsersService {
     });
   }
 
-  updateUser(index: number, user: User) {
-    if (this.users) {
-      this.users[index] = user;
-      this.usersChanged.next(this.users.slice());
-    }
+  updateUser(userid: string, user: User) {
+    this.http.put<any>(this.url + '/' + userid, user).subscribe((response) => {
+      this.getAllUsers();
+    });
   }
 
   deleteUser(index: number) {
