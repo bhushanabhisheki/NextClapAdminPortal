@@ -15,6 +15,8 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../auth/user.model';
+import { UtilsService } from '../shared/services/utils.service';
+import { UsersService } from '../users/users.service';
 
 @Component({
   selector: 'app-settings',
@@ -82,21 +84,26 @@ export class SettingsComponent {
   ];
   data?: User;
 
-  constructor(private _snackBar: MatSnackBar, private fb: FormBuilder) {}
+  constructor(
+    private usersService: UsersService,
+    private utilsService: UtilsService,
+    private _snackBar: MatSnackBar,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
+    let userdata = JSON.parse(localStorage.getItem('userData') || '');
+    if (userdata && userdata.user) this.data = userdata.user;
     this.createForm();
   }
 
   createForm(): void {
     this.editMode = true;
-    let userdata = JSON.parse(localStorage.getItem('userData') || '');
-    if (userdata && userdata.user) this.data = userdata.user;
 
     this.accountDetailsForm = this.fb.group({
-      id: Math.random().toString(36).substring(3, 15),
-      active: 'active',
-      registration_date: new Date().toLocaleDateString(),
+      id: this.data?.id,
+      active: this.data?.active,
+      registration_date: this.data?.registration_date,
       username: new FormControl({
         value: this.data?.username ? this.data?.username : 'Not Available',
         disabled: true,
@@ -141,6 +148,12 @@ export class SettingsComponent {
         this.data?.region ? this.data?.region : 'Not Available'
       ),
     });
+
+    if (this.data)
+      this.imageUrl = this.utilsService.getDisplayedImage(
+        this.data?.profilePic,
+        this.data?.gender
+      );
   }
 
   @ViewChild('fileInput') el?: ElementRef;
@@ -172,8 +185,17 @@ export class SettingsComponent {
   // Function to remove uploaded file
   removeUploadedFile() {
     let newFileList = Array.from(this.el?.nativeElement.files);
-    this.imageUrl = '/assets/profileimage/profile_male.png';
+    if (this.data)
+      this.imageUrl = this.utilsService.getDisplayedImage(
+        this.data?.profilePic,
+        this.data?.gender
+      );
     this.editFile = true;
     this.removeUpload = false;
+  }
+
+  onSubmitAccountDetails(user: User): void {
+    user.address = '';
+    this.usersService.updateUser(user.id, user, true);
   }
 }

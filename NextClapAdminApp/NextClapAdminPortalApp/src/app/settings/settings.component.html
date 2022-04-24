@@ -66,7 +66,11 @@
     <mat-tab label="Account Details">
       <div class="accountDetailsForm">
         <h2 class="section-title">
-          <form [formGroup]="accountDetailsForm" novalidate>
+          <form
+            [formGroup]="accountDetailsForm"
+            novalidate
+            (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)"
+          >
             <div fxLayout="row">
               <div fxLayout="column" fxFlex="50">
                 <mat-form-field appearance="outline" rowHeight="2rem">
@@ -173,6 +177,7 @@
                   />
                 </mat-form-field>
                 <button
+                  type="submit"
                   mat-raised-button
                   color="primary"
                   style="min-width: 5rem; margin-right: 1.4rem; align-self: end"
@@ -189,7 +194,11 @@
     <mat-tab label="Other Information">
       <div class="accountDetailsForm">
         <h2 class="section-title">
-          <form [formGroup]="accountDetailsForm" novalidate>
+          <form
+            [formGroup]="accountDetailsForm"
+            novalidate
+            (ngSubmit)="onSubmitAccountDetails(accountDetailsForm.value)"
+          >
             <div fxLayout="row">
               <div fxLayout="column" fxFlex="50">
                 <mat-form-field appearance="outline" rowHeight="2rem">

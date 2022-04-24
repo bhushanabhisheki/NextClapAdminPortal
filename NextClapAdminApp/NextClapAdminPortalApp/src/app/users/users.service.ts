@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class UsersService {
   usersChanged = new Subject<User[] | undefined>();
   private users?: User[];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAllUsers() {
     this.http.get<any>(this.url, {}).subscribe((response) => {
@@ -28,9 +29,10 @@ export class UsersService {
     });
   }
 
-  updateUser(userid: string, user: User) {
+  updateUser(userid: string, user: User, fromSetting = false) {
     this.http.put<any>(this.url + '/' + userid, user).subscribe((response) => {
-      this.getAllUsers();
+      if (fromSetting) this.authService.user.next(user);
+      else this.getAllUsers();
     });
   }
 
