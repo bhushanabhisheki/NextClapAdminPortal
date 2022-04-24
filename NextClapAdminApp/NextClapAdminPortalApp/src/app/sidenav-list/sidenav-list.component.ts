@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -17,6 +18,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   userLoggedIn = false;
   authServiceSubscription!: Subscription;
   @Output() sidenavClose = new EventEmitter();
+  currentUser?: User;
 
   constructor(private authService: AuthService) {}
 
@@ -26,6 +28,9 @@ export class SidenavListComponent implements OnInit, OnDestroy {
         this.userLoggedIn = loggedIn;
       }
     );
+    this.authService.user.subscribe((response: any) => {
+      this.currentUser = response;
+    });
   }
 
   public onSidenavClose = () => {

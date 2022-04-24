@@ -6,8 +6,10 @@
         class="rounded"
       />
     </div>
-    <div style="font-weight: bold">Neila Dominy</div>
-    <div>Role : Admin</div>
+    <div style="font-weight: bold">
+      {{ currentUser?.firstname + " " + currentUser?.lastname }}
+    </div>
+    <div>Role : {{ currentUser?.role.role_name }}</div>
   </div>
   <mat-divider></mat-divider>
   <mat-nav-list>
