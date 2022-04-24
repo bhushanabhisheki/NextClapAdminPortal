@@ -46,8 +46,8 @@ export class UsersComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UserDialogComponent, {
       data,
-      width: '40rem',
-      height: '26rem',
+      width: '42rem',
+      height: '27rem',
       disableClose: false,
     });
 
