@@ -12,7 +12,7 @@ export class User {
     public lastname: string,
     public birthdate: string,
     public gender: string,
-    public imageurl: string,
+    public profilePic: string,
     public company: string,
     public phone?: string,
     public address?: string,

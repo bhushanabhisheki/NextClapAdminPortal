@@ -42,19 +42,19 @@
           >
             <div fxFlex="15" style="text-align: center">
               <div class="image-cropper">
-                <img src="{{ getDisplayedImage() }}" class="rounded" />
+                <img [src]="getDisplayedImage()" class="rounded" />
               </div>
               <mat-slide-toggle></mat-slide-toggle>
             </div>
             <div fxFlex="85">
               <mat-grid-list cols="3" rowHeight="2rem">
                 <mat-grid-tile
-                  *ngFor="let item of user | keyvalue; let i; as: index"
+                  *ngFor="let item of usermap | keyvalue; index as i"
                 >
                   <div class="text-inside-grid">
                     <mat-icon>
                       <span class="material-icons-outlined">{{
-                        getIcon(item)
+                        iconMap[i]
                       }}</span> </mat-icon
                     >{{ item.value ? item.value : "Not Available" }}
                   </div>

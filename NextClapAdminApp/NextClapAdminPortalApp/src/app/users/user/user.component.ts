@@ -13,38 +13,45 @@ export class UserComponent implements OnInit {
   @Input() currentUser!: User;
   user?: any;
   iconMap?: any;
+  usermap: any;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.usermap = new Map();
+    this.usermap.set(0, this.currentUser.role.role_name);
+    this.usermap.set(1, this.currentUser.firstname);
+    this.usermap.set(2, this.currentUser.lastname);
+    this.usermap.set(3, this.currentUser.phone);
+    this.usermap.set(4, this.currentUser.email);
+    this.usermap.set(5, this.currentUser.group);
+    this.usermap.set(6, this.currentUser.state);
+    this.usermap.set(7, this.currentUser.region);
+    this.usermap.set(8, this.currentUser.last_active_date);
+
+    this.iconMap = [
+      'approval',
+      'F',
+      'L',
+      'local_phone',
+      'email',
+      'group',
+      'location_city',
+      'south_america',
+      'circle_notifications',
+    ];
+
     this.user = {
+      firstname: this.currentUser.firstname,
+      lastname: this.currentUser.lastname,
       company: this.currentUser.company,
       email: this.currentUser.email,
       last_active_date: this.currentUser.last_active_date,
-      firstname: this.currentUser.firstname,
-      lastname: this.currentUser.lastname,
-      username: this.currentUser.username,
+      role: this.currentUser.role.role_name,
       phone: this.currentUser.phone,
       active: this.currentUser.active,
       address: this.currentUser.address,
     };
-
-    this.iconMap = {
-      phone: 'local_phone',
-      email: 'markunread',
-      address: 'home',
-      active: 'notifications_active',
-      company: 'apartment',
-      last_active_date: 'event_note',
-    };
-  }
-
-  getIcon(attr: any) {
-    const key = attr.key;
-    let iconName = this.iconMap[key];
-    if (!iconName) iconName = 'label_off';
-
-    return iconName;
   }
 
   editUser() {
@@ -59,9 +66,9 @@ export class UserComponent implements OnInit {
   getDisplayedImage() {
     let userImg: string = '../../../assets/profileimage/profile_male.png';
 
-    if (this.user?.profilePic)
-      userImg = 'http://localhost:4000/' + this.user.profilePic;
-    else if (this.user.gender === 'Female')
+    if (this.currentUser?.profilePic)
+      userImg = 'http://localhost:4000' + this.currentUser.profilePic;
+    else if (this.currentUser.gender === 'Female')
       userImg = '../../../assets/profileimage/profile_male.png';
     return userImg;
   }
