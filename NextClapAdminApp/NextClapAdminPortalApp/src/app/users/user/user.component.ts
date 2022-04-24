@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/auth/user.model';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +16,7 @@ export class UserComponent implements OnInit {
   iconMap?: any;
   usermap: any;
 
-  constructor() {}
+  constructor(private utilService: UtilsService) {}
 
   ngOnInit(): void {
     this.usermap = new Map();
@@ -64,12 +65,14 @@ export class UserComponent implements OnInit {
   }
 
   getDisplayedImage() {
-    let userImg: string = '../../../assets/profileimage/profile_male.png';
+    let profilePicUrl = '';
 
-    if (this.currentUser?.profilePic)
-      userImg = 'http://localhost:4000' + this.currentUser.profilePic;
-    else if (this.currentUser.gender === 'Female')
-      userImg = '../../../assets/profileimage/profile_male.png';
-    return userImg;
+    if (this.currentUser)
+      profilePicUrl = this.utilService.getDisplayedImage(
+        this.currentUser.profilePic,
+        this.currentUser.gender
+      );
+
+    return profilePicUrl;
   }
 }

@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
+import { UtilsService } from '../shared/services/utils.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -20,7 +21,10 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() sidenavClose = new EventEmitter();
   currentUser?: User;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private utilservice: UtilsService
+  ) {}
 
   ngOnInit() {
     this.authServiceSubscription = this.authService.userLoggedIn.subscribe(
@@ -39,6 +43,18 @@ export class SidenavListComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
+  }
+
+  getProfileImageUrl() {
+    let profilePicUrl = '';
+
+    if (this.currentUser)
+      profilePicUrl = this.utilservice.getDisplayedImage(
+        this.currentUser.profilePic,
+        this.currentUser.gender
+      );
+
+    return profilePicUrl;
   }
 
   ngOnDestroy(): void {

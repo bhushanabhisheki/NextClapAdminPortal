@@ -1,10 +1,7 @@
 <div>
   <div style="text-align: center; margin: 1rem">
     <div class="image-cropper">
-      <img
-        src="../../../../assets/profileimage/profile_female.png"
-        class="rounded"
-      />
+      <img [src]="getProfileImageUrl()" class="rounded" />
     </div>
     <div style="font-weight: bold">
       {{ currentUser?.firstname + " " + currentUser?.lastname }}
