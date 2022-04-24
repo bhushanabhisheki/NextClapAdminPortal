@@ -34,11 +34,10 @@ export class UsersService {
     });
   }
 
-  deleteUser(index: number) {
-    if (this.users) {
-      this.users.splice(index, 1);
-      this.usersChanged.next(this.users.slice());
-    }
+  deleteUser(userid: string) {
+    this.http.delete<any>(this.url + '/' + userid).subscribe((response) => {
+      this.getAllUsers();
+    });
   }
 
   private handleError(errorRes: HttpErrorResponse) {

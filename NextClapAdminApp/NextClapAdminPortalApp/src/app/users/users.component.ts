@@ -83,8 +83,7 @@ export class UsersComponent implements OnInit {
         cancelCaption: 'No',
       })
       .subscribe((response) => {
-        if (this.userList && response)
-          this.removeItemsWithID(this.userList, user.id);
+        if (this.userList && response) this.usersService.deleteUser(user.id);
       });
   }
 }
