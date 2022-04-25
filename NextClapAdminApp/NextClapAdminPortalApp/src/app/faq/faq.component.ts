@@ -42,13 +42,11 @@ export class FaqComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.faqservice.getQueryList('1');
-    this.questionListSubscription = this.faqservice.queryList.subscribe(
-      (queryList) => {
-        this.questionList = queryList;
-        console.log(this.questionList);
-      }
-    );
+    this.faqservice.queryListChanged.subscribe((queryList: any) => {
+      this.questionList = queryList;
+    });
+
+    this.faqservice.getAllQueries(1 + '');
   }
 
   getJSON(obj: any): any {

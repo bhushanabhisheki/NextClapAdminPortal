@@ -1,24 +1,24 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, catchError, throwError, tap, Subject } from 'rxjs';
+import { throwError, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Question } from './question.model';
+import { ServiceModel } from './service.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FaqService {
-  private url: string = environment.apiURL + '/api/v1/faq/';
-  private queryList?: Question[];
-  queryListChanged = new Subject<Question[] | undefined>();
+export class SeviceSpotListingService {
+  private url: string = environment.apiURL + '/api/v1/service';
+  private serviceList?: ServiceModel[];
+  serviceListChanged = new Subject<ServiceModel[] | undefined>();
 
   constructor(private http: HttpClient) {}
 
-  getAllQueries(serviceID: string) {
-    this.http.get<any>(this.url + serviceID, {}).subscribe((response) => {
-      this.queryList = response.faqList;
-      this.queryListChanged?.next(this.queryList);
-      console.log(this.queryList);
+  getAllQueries() {
+    this.http.get<any>(this.url, {}).subscribe((response) => {
+      this.serviceList = response.services;
+      this.serviceListChanged?.next(this.serviceList);
     });
   }
 
