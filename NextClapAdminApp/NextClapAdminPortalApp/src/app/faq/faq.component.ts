@@ -22,6 +22,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   questionList?: Question[];
   questionListSubscription?: Subscription;
   serviceSpots?: ServiceModel[];
+  serviceSelected: number = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -42,7 +43,7 @@ export class FaqComponent implements OnInit, OnDestroy {
       this.questionList = queryList;
     });
 
-    this.faqservice.getAllQueries(1 + '');
+    this.faqservice.getAllQueries(this.serviceSelected);
   }
 
   getJSON(obj: any): any {
@@ -173,7 +174,9 @@ export class FaqComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+  }
 
-    console.log(this.questionList);
+  fetchFAQforService(serviceSelector: any) {
+    this.faqservice.getAllQueries(this.serviceSelected);
   }
 }

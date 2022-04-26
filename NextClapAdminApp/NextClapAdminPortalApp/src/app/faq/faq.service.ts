@@ -14,7 +14,7 @@ export class FaqService {
 
   constructor(private http: HttpClient) {}
 
-  getAllQueries(serviceID: string) {
+  getAllQueries(serviceID: number) {
     this.http.get<any>(this.url + serviceID, {}).subscribe((response) => {
       this.queryList = response.faqList;
       this.queryListChanged?.next(this.queryList);
