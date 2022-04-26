@@ -6,9 +6,9 @@
         <mat-select>
           <mat-option
             *ngFor="let serviceSpot of serviceSpots"
-            [value]="serviceSpot.value"
+            [value]="serviceSpot.id"
           >
-            {{ serviceSpot.viewValue }}
+            {{ serviceSpot.service }}
           </mat-option>
         </mat-select>
       </mat-form-field>

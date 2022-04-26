@@ -10,12 +10,8 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { FaqService } from './faq.service';
 import { NewFaqDialog } from './new-faq/new-faq-dialog.component';
 import { Answer } from './answer.model';
-
-//TODO : need to move this to model while defining servicespots
-interface ServiceSpots {
-  value: string;
-  viewValue: string;
-}
+import { ServiceModel } from './service.model';
+import { SeviceSpotListingService } from './sevicespot-listing-service';
 
 @Component({
   selector: 'app-faq',
@@ -25,23 +21,23 @@ interface ServiceSpots {
 export class FaqComponent implements OnInit, OnDestroy {
   questionList?: Question[];
   questionListSubscription?: Subscription;
-
-  //TODO : to be fetched from the service spot API
-  serviceSpots: ServiceSpots[] = [
-    { value: 'Hotels', viewValue: 'Hotels' },
-    { value: 'Picnic', viewValue: 'Picnic' },
-    { value: 'Pizza Party', viewValue: 'Pizza Party' },
-    { value: 'Catering', viewValue: 'Catering' },
-  ];
+  serviceSpots?: ServiceModel[];
 
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     public faqservice: FaqService,
+    public seviceSpotListingService: SeviceSpotListingService,
     private confirmDialogService: DialogService
   ) {}
 
   ngOnInit(): void {
+    this.seviceSpotListingService.getAllServiceSpots();
+    this.seviceSpotListingService.serviceListChanged.subscribe(
+      (serviceList) => {
+        this.serviceSpots = serviceList;
+      }
+    );
     this.faqservice.queryListChanged.subscribe((queryList: any) => {
       this.questionList = queryList;
     });

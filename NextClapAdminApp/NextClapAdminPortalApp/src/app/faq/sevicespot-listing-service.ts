@@ -15,7 +15,7 @@ export class SeviceSpotListingService {
 
   constructor(private http: HttpClient) {}
 
-  getAllQueries() {
+  getAllServiceSpots() {
     this.http.get<any>(this.url, {}).subscribe((response) => {
       this.serviceList = response.services;
       this.serviceListChanged?.next(this.serviceList);
