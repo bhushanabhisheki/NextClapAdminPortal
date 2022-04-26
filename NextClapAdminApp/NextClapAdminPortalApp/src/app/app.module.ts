@@ -12,6 +12,7 @@ import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     HeaderComponent,
     SidenavListComponent,
     AuthComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

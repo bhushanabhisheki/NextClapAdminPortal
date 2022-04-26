@@ -33,6 +33,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // this.loadingRef = this.loadingService.open();
     this.seviceSpotListingService.getAllServiceSpots();
     this.seviceSpotListingService.serviceListChanged.subscribe(
       (serviceList) => {
