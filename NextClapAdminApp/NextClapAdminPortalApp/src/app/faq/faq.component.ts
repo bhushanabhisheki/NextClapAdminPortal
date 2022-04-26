@@ -22,7 +22,7 @@ export class FaqComponent implements OnInit, OnDestroy {
   questionList?: Question[];
   questionListSubscription?: Subscription;
   serviceSpots?: ServiceModel[];
-  serviceSelected: number = 0;
+  serviceSelected: number = 1;
 
   constructor(
     public dialog: MatDialog,
